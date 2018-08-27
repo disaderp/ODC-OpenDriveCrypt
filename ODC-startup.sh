@@ -12,10 +12,10 @@ SETUP=$( cat /root/setup )
 
 if [ $SETUP -eq 0 ] ; then
 	#signal password prompt
-	echo "default-on" > /sys/class/leds/orangepi:red:status/trigger
+	echo "heartbeat" > /sys/class/leds/orangepi:red:status/trigger
 	
 	#setup luks container
-	cryptsetup luksFormat $DEVICE
+	cryptsetup -q luksFormat $DEVICE
 	
 	#error chk
 	if [ $? -ne 0 ] ; then
@@ -26,7 +26,7 @@ if [ $SETUP -eq 0 ] ; then
 	fi
 	
 	#signal password prompt-off
-	echo "default-off" > /sys/class/leds/orangepi:red:status/trigger
+	echo "none" > /sys/class/leds/orangepi:red:status/trigger
 	
 	#write
 	echo "1" > /root/setup
@@ -36,7 +36,7 @@ fi
 modprobe -r g_serial
 
 #signal password prompt
-echo "default-on" > /sys/class/leds/orangepi:red:status/trigger
+echo "heartbeat" > /sys/class/leds/orangepi:red:status/trigger
 
 #password prompt
 cryptsetup luksOpen $DEVICE luksdev
@@ -50,7 +50,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 #signal password prompt
-echo "default-off" > /sys/class/leds/orangepi:red:status/trigger
+echo "none" > /sys/class/leds/orangepi:red:status/trigger
 
 #enable g_mass_storage
 modprobe g_mass_storage file=/dev/mapper/luksdev
