@@ -27,10 +27,14 @@ mv -f ./ODC-startup.sh /root/ODC-startup.sh
 chmod +x /root/ODC-startup.sh
 echo "$(echo '/root/ODC-startup.sh' | cat - /etc/rc.local)" > /etc/rc.local
 
-echo -e "\n\nNotice: if you are just doing a reinstall and have a working LUKS drive"
-echo "Enter this command next - echo \"1\" > /root/setup"
-echo "Configuration done. Make sure to plug external keyboard to USB hub"
-echo "The device will now boot in headless mode with disabled USBserial interface"
+cat <<EOT
+
+
+Notice: if you are just doing a reinstall and have a working LUKS drive,
+enter this command next: echo "1" > /root/setup
+Configuration done. Make sure to plug in external keyboard to USB hub.
+The device will now boot in headless mode with disabled USBserial interface
+EOT
 
 #TODO: disable all internet interfaces permanently
 
